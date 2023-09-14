@@ -22,11 +22,7 @@ db.connect((err) => {
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(
-  cors({
-    origin: "https://feedback-app-eight-beta.vercel.app/",
-  })
-)
+app.use(cors())
 
 app.get("/getall", (req, res) => {
   const sql = "SELECT * FROM feedbacks"
