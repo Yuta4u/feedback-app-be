@@ -6,6 +6,7 @@ const bodyParser = require("body-parser")
 const cors = require("cors")
 
 const app = express()
+app.use(cors())
 
 // Configure MySQL connection
 const db = mysql.createConnection({
@@ -22,7 +23,6 @@ db.connect((err) => {
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(cors())
 
 app.get("/getall", (req, res) => {
   const sql = "SELECT * FROM feedbacks"
