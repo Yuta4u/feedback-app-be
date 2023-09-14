@@ -8,10 +8,10 @@ const app = express()
 
 // Configure MySQL connection
 const db = mysql.createConnection({
-  host: "buagtxp5irmslyf75bsu-mysql.services.clever-cloud.com",
-  user: "uf3vyzobfnmqskvj",
-  password: "3z1NPQUl3cBkUd9ueb0H",
-  database: "buagtxp5irmslyf75bsu",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
 })
 
 db.connect((err) => {
@@ -21,6 +21,7 @@ db.connect((err) => {
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cors())
 
 app.get("/getall", (req, res) => {
   const sql = "SELECT * FROM feedbacks"
