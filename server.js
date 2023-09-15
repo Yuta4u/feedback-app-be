@@ -6,7 +6,10 @@ const bodyParser = require("body-parser")
 const cors = require("cors")
 
 const app = express()
+
+// enable cors
 app.use(cors())
+app.options("*", cors())
 
 // Configure MySQL connection
 const db = mysql.createConnection({
