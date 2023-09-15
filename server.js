@@ -8,8 +8,11 @@ const cors = require("cors")
 const app = express()
 
 // enable cors
-app.use(cors())
-app.options("*", cors())
+app.use(
+  cors({
+    origin: "https://feedback-app-eight-beta.vercel.app/",
+  })
+)
 
 // Configure MySQL connection
 const db = mysql.createConnection({
