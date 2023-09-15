@@ -8,8 +8,13 @@ const cors = require("cors")
 const app = express()
 
 // enable cors
-app.use(cors({}))
-app.options("*", cors())
+const corsOptions = {
+  origin: "*", // Specify allowed origin(s)
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+}
+
+app.use(cors(corsOptions))
 
 // Configure MySQL connection
 const db = mysql.createConnection({
