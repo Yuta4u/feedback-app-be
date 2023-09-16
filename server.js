@@ -6,16 +6,6 @@ const bodyParser = require("body-parser")
 const cors = require("cors")
 const app = express()
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*")
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  )
-  next()
-})
-app.use(cors((Credential = "false")))
-
 // Configure MySQL connection
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -32,6 +22,8 @@ db.connect((err) => {
 app.use(express.json())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cors())
+app.options("*", cors())
 
 app.get("/getall", (req, res) => {
   const sql = "SELECT * FROM feedbacks"
