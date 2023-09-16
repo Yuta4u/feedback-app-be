@@ -4,17 +4,13 @@ const express = require("express")
 const mysql = require("mysql")
 const bodyParser = require("body-parser")
 const cors = require("cors")
-
 const app = express()
 
-// enable cors
-const corsOptions = {
-  origin: "*", // Specify allowed origin(s)
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true,
-}
-
-app.use(cors(corsOptions))
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*")
+  next()
+})
+app.use(cors((Credential = "true")))
 
 // Configure MySQL connection
 const db = mysql.createConnection({
@@ -29,6 +25,7 @@ db.connect((err) => {
   console.log("Connected to MySQL database")
 })
 
+app.use(express.json())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
