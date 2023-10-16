@@ -1,5 +1,4 @@
 // server.js
-
 const express = require("express")
 const mysql = require("mysql")
 const bodyParser = require("body-parser")
@@ -25,26 +24,26 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cors())
 app.options("*", cors())
 
-app.get("/getall", (req, res) => {
-  const sql = "SELECT * FROM feedbacks"
+app.get("/todos", (req, res) => {
+  const sql = "SELECT * FROM todos"
   db.query(sql, (err, result) => {
     if (err) throw err
-    res.json({ items: result })
+    res.json({ todos: result })
   })
 })
 
 // Create a new item
-app.post("/feedback", (req, res) => {
-  const { feedbackId, feedback, rating } = req.body
+app.post("/todos", (req, res) => {
+  const { title, deskripsi, date, check } = req.body
   const sql =
-    "INSERT INTO feedbacks (feedbackId, feedback, rating) VALUES (?, ?, ?)"
-  db.query(sql, [feedbackId, feedback, rating], (err, result) => {
+    "INSERT INTO todos (title, deskripsi, date,check) VALUES (?, ?, ?, ?)"
+  db.query(sql, [title, deskripsi, date, check], (err, result) => {
     if (err) throw err
-    res.status(201).json({ msg: "Berhasil post feedback" })
+    res.status(201).json({ msg: "Berhasil post todos" })
   })
 })
 
-const port = process.env.PORT || 9002
+const port = process.env.PORT || 3002
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`)
 })
